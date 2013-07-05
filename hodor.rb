@@ -34,5 +34,3 @@ module Hodor
     end
   end
 end
-
-puts Hodor::Hodor.new(ARGV.first).hodor
