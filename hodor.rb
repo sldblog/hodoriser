@@ -9,11 +9,9 @@ module Hodor
       base = parts[0] + '://' + parts[2]
 
       doc = Nokogiri::HTML(RestClient.get(url))
-      doc.xpath('//div').each { |node| node_hodor node }
-      doc.xpath('//span').each { |node| node_hodor node }
-      doc.xpath('//img/@alt').each { |node| node_hodor node }
-      doc.xpath('//script/@src').each { |node| src_hodor(node, base) }
-      doc.xpath('//link/@href').each { |node| src_hodor(node, base) }
+      doc.xpath('//div|//span|//img/@alt').each { |node| node_hodor node }
+      doc.xpath('//script/@src|//link/@href').each { |node| src_hodor(node, base) }
+      # TODO: single element values like <span>text</span>, <input value="default"/>
       doc.to_xml(:indent => 2)
     end
 
