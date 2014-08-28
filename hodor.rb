@@ -13,7 +13,7 @@ module Hodor
     end
 
     def hodor
-      @doc.xpath('//div|//span|//img/@alt').each { |node| node_hodor node }
+      @doc.xpath('//div|//span|//img/@alt|//a').each { |node| node_hodor node }
       @doc.xpath('//script/@src|//img/@src|//link/@href').each { |node| src_hodor node }
       @doc.to_xml(:indent => 2)
     end
@@ -24,6 +24,7 @@ module Hodor
     end
 
     def src_hodor(attr)
+      attr.content = 'http:' + attr.content if attr.content.start_with?('//')
       attr.content = @base + '/' + attr unless attr.content =~ /^http/
     end
 
