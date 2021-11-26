@@ -29,7 +29,7 @@ module Hodor
     end
 
     def make_hodor(not_hodor)
-      not_hodor.encode('UTF-8', @source_charset, {:invalid => :replace}).
+      not_hodor.encode('UTF-8', @source_charset, invalid: :replace).
         gsub(/\p{Ll}\p{Alpha}*/, 'hodor').
         gsub(/\p{Lu}\p{Alpha}*/, 'Hodor')
     end
